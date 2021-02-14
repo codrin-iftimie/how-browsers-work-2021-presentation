@@ -14,34 +14,12 @@ export const COLORS = {
   link: "#91165a"
 }
 
-export const IdentityAvatar = styled.img`
-  width: 128px;
-  height: auto;
-  border: 2px solid #fff;
-  border-radius: 64px;
-`
-export const IdentityTable = styled.table`
-  margin-top: 70px;
-  td {
-    padding: 6px 20px;
-  }
-`
 
-export const SideBySide = styled.table`
-  margin-top: 30px;
-  border: 1px solid #DCE775;
-  border-collapse: collapse;
-  th, td {
-    padding: 6px 20px;
-    max-width: 50%;
-    border: 1px solid #DCE775;
-  }
-`
-
-export const Likes = styled.div`
-  color: ${COLORS.lemon};
-  margin-left: -10px;
-  .svg-inline--fa {
-    margin: 0 10px;
+export const SideBySide = styled.div`
+  display: flex;
+  margin: 0 -60px;
+  > * {
+    margin: 0 60px;
+    font-size: 1.9rem;
   }
 `
