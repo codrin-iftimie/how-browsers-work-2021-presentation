@@ -1,0 +1,87 @@
+import { themes, Notes } from "mdx-deck";
+import { LiveCode } from "mdx-deck-live-code";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Code from "mdx-code";
+
+import Goo from "gooey-react";
+
+import { IdentityAvatar, IdentityTable, Likes, SideBySide } from "./styles";
+import ProCons from "./components/ProCons";
+import itshouldbefun from "./assets/logo.png";
+import browerLayers from "./assets/layers.png";
+import renderingFlow from "./assets/flow.png";
+import webkitFlow from "./assets/webkitflow.png";
+import "./setup";
+
+import matrixTheme from "./styles/theme";
+export const theme = matrixTheme;
+
+# How browsers work
+
+<div>
+  <img src={itshouldbefun} style={{ maxWidth: "460px" }} />
+</div>
+
+---
+
+# Le browser
+
+<img src={browerLayers} style={{ maxWidth: "460px" }} />
+
+---
+
+- **The user interface**: this includes the address bar, back/forward button, bookmarking menu, etc. Every part of the browser display except the window where you see the requested page.
+- **The browser engine**: marshals actions between the UI and the rendering engine.
+- **The rendering engine**: responsible for displaying requested content. For example if the requested content is HTML, the rendering engine parses HTML and CSS, and displays the parsed content on the screen.
+- **Networking**: for network calls such as HTTP requests, using different implementations for different platform behind a platform-independent interface.
+- **UI backend**: used for drawing basic widgets like combo boxes and windows. This backend exposes a generic interface that is not platform specific. Underneath it uses operating system user interface methods.
+- **JavaScript interpreter**: Used to parse and execute JavaScript code.
+- **Data storage**: This is a persistence layer. The browser may need to save all sorts of data locally, such as cookies. Browsers also support storage mechanisms such as localStorage, IndexedDB, WebSQL and FileSystem.
+
+---
+
+# The rendering engine
+
+The responsibility of the rendering engine is well... Rendering of the requested contents on the browser screen.
+
+By default the rendering engine can display HTML and XML documents and images. It can display other types of data via plug-ins or extension; for example, displaying PDF documents using a PDF viewer plug-in.
+But in most of our cases it's just displaying HTML and images that are formatted using CSS.
+
+<img src={renderingFlow} style={{ maxWidth: "1100px" }} />
+
+---
+
+# From HTML to content
+
+<img src={webkitFlow} style={{ maxWidth: "1100px" }} />
+
+---
+
+# Caveats
+
+ - The rendering engine is single threaded.
+ - Almost everything, except network operations, happens in a single thread.
+ - In Firefox and Safari this is the main thread of the browser.
+ - In Chrome each tab represents one process that handles a single thread.
+ - Network operations can be performed by several parallel threads. The number of parallel connections is limited (usually 2–6 connections).
+
+---
+
+# Caveats 2
+
+ - Data fetching is throttled. Animations will suffer while data is being fetched
+ - A higher number of DOM elements decreases browser performance
+ - Adding a huge chunk of DOM will eventually block the browser render cycle
+ - In CSS specificity takes a while to compute
+ - Inline styles are not that optimal
+ - Async is your friend and your worst enemy. Browsers get to breathe when you use any type of async which is good, they can do a render cycle, hence unblock the main "thread"
+
+---
+
+# WebAPI
+
+As JS developers we interact with the browser using its WebAPIs.
+<a href="https://developer.mozilla.org/en-US/docs/Web/API">https://developer.mozilla.org/en-US/docs/Web/API</a>
+
+---
+ # Thank You
