@@ -1,9 +1,7 @@
 import { themes, Notes } from "mdx-deck";
-import { LiveCode } from "mdx-deck-live-code";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Code from "mdx-code";
 
-import Goo from "gooey-react";
+import {CodeSurfer} from "code-surfer";
 
 import { SideBySide } from "./styles";
 import ProCons from "./components/ProCons";
@@ -27,23 +25,28 @@ export const theme = matrixTheme;
 <SideBySide>
 <div>
 
+
 # Le browser
+
 <img src={browerLayers} style={{ maxWidth: "460px" }} />
 
 </div>
 <div>
 
-  - **The user interface**: this includes the address bar, back/forward button, bookmarking menu, etc. Every part of the browser display except the window where you see the requested page.
-  - **The browser engine**: marshals actions between the UI and the rendering engine.
-  - **The rendering engine**: responsible for displaying requested content. For example if the requested content is HTML, the rendering engine parses HTML and CSS, and displays the parsed content on the screen.
-  - **Networking**: for network calls such as HTTP requests, using different implementations for different platform behind a platform-independent interface.
-  - **UI backend**: used for drawing basic widgets like combo boxes and windows. This backend exposes a generic interface that is not platform specific. Underneath it uses operating system user interface methods.
-  - **JavaScript interpreter**: Used to parse and execute JavaScript code.
-  - **Data storage**: This is a persistence layer. The browser may need to save all sorts of data locally, such as cookies. Browsers also support storage mechanisms such as localStorage, IndexedDB, WebSQL and FileSystem.
+
+- **The user interface**: this includes the address bar, back/forward button, bookmarking menu, etc. Every part of the browser display except the window where you see the requested page.
+- **The browser engine**: marshals actions between the UI and the rendering engine.
+- **The rendering engine**: responsible for displaying requested content. For example if the requested content is HTML, the rendering engine parses HTML and CSS, and displays the parsed content on the screen.
+- **Networking**: for network calls such as HTTP requests, using different implementations for different platform behind a platform-independent interface.
+- **UI backend**: used for drawing basic widgets like combo boxes and windows. This backend exposes a generic interface that is not platform specific. Underneath it uses operating system user interface methods.
+- **JavaScript interpreter**: Used to parse and execute JavaScript code.
+- **Data storage**: This is a persistence layer. The browser may need to save all sorts of data locally, such as cookies. Browsers also support storage mechanisms such as localStorage, IndexedDB, WebSQL and FileSystem.
 
 </div>
 
+
 </SideBySide>
+
 
 ---
 
@@ -66,29 +69,70 @@ But in most of our cases it's just displaying HTML and images that are formatted
 
 # Caveats
 
- - The rendering engine is single threaded.
- - Almost everything, except network operations, happens in a single thread.
- - In Firefox and Safari this is the main thread of the browser.
- - In Chrome each tab represents one process that handles a single thread.
- - Network operations can be performed by several parallel threads. The number of parallel connections is limited (usually 2–6 connections).
+- The rendering engine is single threaded.
+- Almost everything, except network operations, happens in a single thread.
+- In Firefox and Safari this is the main thread of the browser.
+- In Chrome each tab represents one process that handles a single thread.
+- Network operations can be performed by several parallel threads. The number of parallel connections is limited (usually 2–6 connections).
 
 ---
 
 # Caveats 2
 
- - Data fetching is throttled. Animations will suffer while data is being fetched
- - A higher number of DOM elements decreases browser performance
- - Adding a huge chunk of DOM will eventually block the browser render cycle
- - In CSS specificity takes a while to compute
- - Inline styles are not that optimal
- - Async is your friend and your worst enemy. Browsers get to breathe when you use any type of async which is good, they can do a render cycle, hence unblock the main "thread"
+- Data fetching is throttled. Animations will suffer while data is being fetched
+- A higher number of DOM elements decreases browser performance
+- Adding a huge chunk of DOM will eventually block the browser render cycle
+- In CSS specificity takes a while to compute
+- Inline styles are not that optimal
+- Async is your friend and your worst enemy. Browsers get to breathe when you use any type of async which is good, they can do a render cycle, hence unblock the main "thread"
+
+---
+
+# Caveats 3
+
+- [https://gist.github.com/paulirish/5d52fb081b3570c81e3a](https://gist.github.com/paulirish/5d52fb081b3570c81e3a)
+- Use flexbox over older layout models
+- Avoid forced synchronous layouts (use requestAnimationFrame, or other microtasks)
+
+---
+
+<CodeSurfer>
+
+```js 2,4
+function resizeAllParagraphsToMatchBlockWidth() {
+  // Puts the browser into a read-write-read-write cycle.
+  for (var i = 0; i < paragraphs.length; i++) {
+    paragraphs[i].style.width = box.offsetWidth + 'px';
+  }
+}
+```
+
+
+```js 1:2,6:7
+// Read
+var width = box.offsetWidth;
+
+function resizeAllParagraphsToMatchBlockWidth() {
+  for (var i = 0; i < paragraphs.length; i++) {
+    // Now write.
+    paragraphs[i].style.width = width + 'px';
+  }
+}
+
+```
+
+</CodeSurfer>
 
 ---
 
 # WebAPI
 
 As JS developers we interact with the browser using its WebAPIs.
-<a href="https://developer.mozilla.org/en-US/docs/Web/API">https://developer.mozilla.org/en-US/docs/Web/API</a>
+
+<a href="https://developer.mozilla.org/en-US/docs/Web/API">
+  https://developer.mozilla.org/en-US/docs/Web/API
+</a>
 
 ---
- # Thank You
+
+# Thank You
